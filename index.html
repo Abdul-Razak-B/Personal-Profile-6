@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Abdul Razak | Computer Scientist</title>
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236366f1'/><text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold' font-size='50'>AR</text></svg>">
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+        <!-- Load Lucide icons library -->
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <style>
+            body {
+                font-family: 'Outfit', sans-serif;
+                background-color: #0f172a;
+                color: #f8fafc;
+                scroll-behavior: smooth;
+                line-height: 1.6;
+            }
+
+            /* Standardized Section Spacing */
+            section {
+                padding-top: 6rem;
+                padding-bottom: 6rem;
+            }
+
+            /* Custom Modern Scrollbar */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #0f172a;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: linear-gradient(to bottom, #6366f1, #a855f7);
+                border-radius: 20px;
+            }
+
+            .glass {
+                background: rgba(30, 41, 59, 0.6);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .glass-card {
+                background: rgba(30, 41, 59, 0.4);
+                backdrop-filter: blur(8px);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            .glass-card:hover {
+                background: rgba(45, 55, 75, 0.6);
+                border-color: rgba(99, 102, 241, 0.3);
+                transform: translateY(-8px);
+                box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+            }
+
+            /* Animations */
+            @keyframes logo-float {
+
+                0%,
+                100% {
+                    transform: translateY(0) rotate(0deg);
+                }
+
+                50% {
+                    transform: translateY(-4px) rotate(2deg);
+                }
+            }
+
+            @keyframes logo-glow {
+
+                0%,
+                100% {
+                    box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+                }
+
+                50% {
+                    box-shadow: 0 0 20px rgba(99, 102, 241, 0.7);
+                }
+            }
+
+            .logo-container {
+                animation: logo-float 4s ease-in-out infinite;
+                perspective: 1000px;
+            }
+
+            .logo-box {
+                transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                transform-style: preserve-3d;
+                animation: logo-glow 3s ease-in-out infinite;
+            }
+
+            .logo-container:hover .logo-box {
+                transform: rotateY(360deg) scale(1.1);
+            }
+
+            .animate-blob {
+                animation: blob 7s infinite;
+            }
+
+            @keyframes blob {
+                0% {
+                    transform: translate(0px, 0px) scale(1);
+                }
+
+                33% {
+                    transform: translate(30px, -50px) scale(1.1);
+                }
+
+                66% {
+                    transform: translate(-20px, 20px) scale(0.9);
+                }
+
+                100% {
+                    transform: translate(0px, 0px) scale(1);
+                }
+            }
+
+            .reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.8s ease-out;
+            }
+
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .nav-link {
+                position: relative;
+                transition: color 0.3s;
+            }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 2px;
+                bottom: -4px;
+                left: 0;
+                background-color: #818cf8;
+                transition: width 0.3s;
+            }
+
+            .nav-link:hover::after {
+                width: 100%;
+            }
+
+            .timeline-line {
+                position: absolute;
+                left: 24px;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background: linear-gradient(to bottom, transparent, #6366f1, #a855f7, transparent);
+            }
+
+            @media (min-width: 768px) {
+                .timeline-line {
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+
+            #back-to-top {
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s;
+            }
+
+            #back-to-top.visible {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            /* Profile Image Stylization */
+            .profile-frame {
+                position: relative;
+                padding: 10px;
+                border-radius: 2rem;
+                background: linear-gradient(135deg, #6366f1, #a855f7);
+                box-shadow: 0 20px 50px -10px rgba(99, 102, 241, 0.5);
+            }
+        </style>
+    </head>
+
+    <body class="min-h-screen selection:bg-indigo-500/30">
+
+        <!-- Navigation Bar -->
+        <nav class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-6">
+            <div class="max-w-7xl mx-auto flex items-center justify-between glass rounded-3xl px-6 py-4 shadow-2xl">
+                <div class="flex items-center gap-4">
+                    <div class="logo-container cursor-pointer">
+                        <div
+                            class="logo-box w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg flex-shrink-0">
+                            AR
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-bold text-lg md:text-xl tracking-tight leading-none">Abdul Razak</span>
+                        <span
+                            class="text-[10px] md:text-xs text-indigo-400 font-medium uppercase tracking-[0.2em]">Computer
+                            Scientist</span>
+                    </div>
+                </div>
+
+                <div class="hidden lg:flex items-center gap-10 text-sm font-semibold">
+                    <a href="#home" class="nav-link text-slate-300 hover:text-white">Home</a>
+                    <a href="#about" class="nav-link text-slate-300 hover:text-white">About</a>
+                    <a href="#academics" class="nav-link text-slate-300 hover:text-white">Academics</a>
+                    <a href="#projects" class="nav-link text-slate-300 hover:text-white">Projects</a>
+                    <a href="#contact" class="nav-link text-slate-300 hover:text-white">Contact</a>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <a href="#contact"
+                        class="hidden sm:block bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-2xl text-sm font-bold transition-all shadow-lg shadow-indigo-500/20 active:scale-95">
+                        Contact Me
+                    </a>
+                    <button id="menu-btn" class="lg:hidden p-2 text-slate-300 hover:text-white transition-colors">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Side Menu Overlay -->
+        <div id="mobile-menu"
+            class="fixed inset-y-0 right-0 w-72 bg-slate-900/98 backdrop-blur-2xl z-[60] shadow-2xl lg:hidden flex flex-col p-10 space-y-10 transition-transform translate-x-full">
+            <div class="flex justify-end">
+                <button id="close-menu" class="p-2 text-slate-400 hover:text-white"><i data-lucide="x"
+                        class="w-8 h-8"></i></button>
+            </div>
+            <div class="flex flex-col gap-8 text-xl font-bold">
+                <a href="#home" class="mobile-link text-slate-300 hover:text-indigo-400">Home</a>
+                <a href="#about" class="mobile-link text-slate-300 hover:text-indigo-400">About Me</a>
+                <a href="#academics" class="mobile-link text-slate-300 hover:text-indigo-400">Academics</a>
+                <a href="#projects" class="mobile-link text-slate-300 hover:text-indigo-400">Projects</a>
+                <a href="#contact" class="mobile-link text-slate-300 hover:text-indigo-400">Contact</a>
+            </div>
+        </div>
+
+        <!-- Animated Background Decor -->
+        <div
+            class="fixed top-0 -left-10 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px] animate-blob pointer-events-none">
+        </div>
+        <div
+            class="fixed bottom-0 -right-10 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px] animate-blob animation-delay-2000 pointer-events-none">
+        </div>
+
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center pt-28 px-6 overflow-hidden">
+            <div class="max-w-5xl mx-auto text-center z-10">
+                <div
+                    class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs md:text-sm font-bold mb-10 animate-pulse tracking-widest uppercase">
+                    MPhil Scholar @ NCBA&E
+                </div>
+
+                <h1
+                    class="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight mb-8 reveal leading-[1.1]">
+                    Innovating the <span
+                        class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">Future</span>
+                </h1>
+
+                <p class="text-slate-400 text-lg md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed reveal"
+                    style="transition-delay: 100ms;">
+                    I am <span class="text-white font-bold">Abdul Razak Bhutto</span>, a Computer Scientist from
+                    Daharki, Sindh, specializing in high-level research and architectural software engineering.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-6 reveal"
+                    style="transition-delay: 200ms;">
+                    <a href="#about"
+                        class="w-full sm:w-auto px-10 py-5 bg-white text-slate-900 font-extrabold rounded-3xl hover:bg-slate-200 transition-all shadow-2xl flex items-center justify-center gap-3">
+                        Explore My Story
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                    </a>
+                    <div class="flex items-center gap-4 p-3 glass rounded-3xl">
+                        <a href="https://github.com" target="_blank"
+                            class="p-3 hover:bg-white/10 rounded-2xl transition-all"><i data-lucide="github"
+                                class="w-6 h-6"></i></a>
+                        <a href="https://linkedin.com" target="_blank"
+                            class="p-3 hover:bg-white/10 rounded-2xl transition-all"><i data-lucide="linkedin"
+                                class="w-6 h-6"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="bg-slate-900/40 relative px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+
+                    <!-- Image Side -->
+                    <div class="lg:col-span-5 reveal">
+                        <div class="profile-frame">
+                            <div class="aspect-[4/5] bg-slate-800 rounded-[1.5rem] overflow-hidden relative group">
+                                <!-- Placeholder Profile Image -->
+                                <div
+                                    class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-slate-800 to-slate-950">
+                                    <div
+                                        class="w-48 h-48 rounded-full bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 mb-6">
+                                        <i data-lucide="user" class="w-24 h-24 text-indigo-400 opacity-50"></i>
+                                    </div>
+                                    <span class="text-slate-500 font-medium tracking-widest uppercase text-xs">Profile
+                                        Image Placeholder</span>
+                                </div>
+                                <!-- Subtle Info Overlay -->
+                                <div
+                                    class="absolute bottom-0 inset-x-0 p-8 bg-gradient-to-t from-slate-950 to-transparent">
+                                    <p class="text-white font-bold text-xl uppercase tracking-widest">A. Razak Bhutto
+                                    </p>
+                                    <p class="text-indigo-400 text-sm">Born: April 1, 2001</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text Side -->
+                    <div class="lg:col-span-7 space-y-8 reveal" style="transition-delay: 150ms;">
+                        <div>
+                            <h2 class="text-indigo-400 font-extrabold text-sm uppercase tracking-[0.3em] mb-4">The
+                                Person Behind the Code</h2>
+                            <h3 class="text-4xl md:text-5xl font-bold mb-6">About Abdul Razak</h3>
+                            <div class="w-20 h-1.5 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full"></div>
+                        </div>
+
+                        <div class="space-y-6 text-slate-300 text-lg leading-relaxed">
+                            <p>
+                                Born in Daharki, Sindh, into the respected Bhutto family, I grew up in an environment
+                                that valued education and service. My father, <span
+                                    class="text-white font-semibold">Abdul Hakeem Bhutto</span>, has always been my
+                                guiding light, fostering a household of academic pursuit alongside my brothers, Abdul
+                                Nasir and Abdul Wali Khan.
+                            </p>
+                            <p>
+                                I am a <span class="text-white font-semibold">Computer Scientist</span> by trade and an
+                                <span class="text-white font-semibold">MPhil Research Scholar</span> by passion. My
+                                journey in technology began in the local classrooms of Daharki and has led me to the
+                                National College of Business Administration & Economics (NCBA&E).
+                            </p>
+                            <p>
+                                Beyond the technical realm, I have a deep interest in education, exemplified by my
+                                Bachelor of Education (B.Ed) from Ammara College. I believe in the power of technology
+                                to uplift communities, a principle I apply to every software solution and research paper
+                                I produce.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-6 pt-6">
+                            <div class="glass-card p-4 rounded-2xl text-center">
+                                <p class="text-indigo-400 font-bold text-2xl">24+</p>
+                                <p class="text-slate-500 text-xs uppercase font-bold tracking-widest mt-1">Months
+                                    Research</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl text-center">
+                                <p class="text-purple-400 font-bold text-2xl">10+</p>
+                                <p class="text-slate-500 text-xs uppercase font-bold tracking-widest mt-1">Core Projects
+                                </p>
+                            </div>
+                            <div class="glass-card p-4 rounded-2xl text-center">
+                                <p class="text-pink-400 font-bold text-2xl">MPhil</p>
+                                <p class="text-slate-500 text-xs uppercase font-bold tracking-widest mt-1">Candidate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Academics Section -->
+        <section id="academics" class="px-6 relative">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20 reveal">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">Academic Journey</h2>
+                    <div class="w-24 h-1.5 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full mb-8">
+                    </div>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+                        A timeline documenting my pursuit of excellence across diverse educational landscapes.
+                    </p>
+                </div>
+
+                <div class="relative">
+                    <div class="timeline-line"></div>
+                    <div class="space-y-16">
+                        <!-- Timeline items (Standardized padding and icons) -->
+                        <div class="flex flex-col md:flex-row items-start md:items-center pl-10 md:pl-0 reveal">
+                            <div class="flex-1 md:text-right md:pr-16 mb-4 md:mb-0 order-2 md:order-1">
+                                <h4 class="text-2xl font-bold text-indigo-400">MPhil in Computer Science</h4>
+                                <p class="text-slate-200 font-bold text-lg">NCBA&E, Rahim Yar Khan</p>
+                                <p class="text-slate-500 font-semibold italic">2025 - 2027 (Expected)</p>
+                            </div>
+                            <div
+                                class="absolute md:relative left-0 md:left-auto w-14 h-14 glass rounded-full flex items-center justify-center z-10 border-2 border-indigo-500 bg-slate-900 order-1 md:order-2">
+                                <i data-lucide="graduation-cap" class="w-6 h-6 text-indigo-400"></i>
+                            </div>
+                            <div class="flex-1 hidden md:block order-3"></div>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row items-start md:items-center pl-10 md:pl-0 reveal">
+                            <div class="flex-1 hidden md:block"></div>
+                            <div
+                                class="absolute md:relative left-0 md:left-auto w-14 h-14 glass rounded-full flex items-center justify-center z-10 border-2 border-purple-500 bg-slate-900">
+                                <i data-lucide="award" class="w-6 h-6 text-purple-400"></i>
+                            </div>
+                            <div class="flex-1 md:pl-16 mt-4 md:mt-0">
+                                <h4 class="text-2xl font-bold text-purple-400">Bachelor of Education (B.Ed)</h4>
+                                <p class="text-slate-200 font-bold text-lg">Ammara College, Ghotki</p>
+                                <p class="text-slate-500 font-semibold italic">2024 - 2025</p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row items-start md:items-center pl-10 md:pl-0 reveal">
+                            <div class="flex-1 md:text-right md:pr-16 mb-4 md:mb-0 order-2 md:order-1">
+                                <h4 class="text-2xl font-bold text-blue-400">BS in Computer Science</h4>
+                                <p class="text-slate-200 font-bold text-lg">Shah Abdul Latif University</p>
+                                <p class="text-slate-500 font-semibold italic">2020 - 2024</p>
+                            </div>
+                            <div
+                                class="absolute md:relative left-0 md:left-auto w-14 h-14 glass rounded-full flex items-center justify-center z-10 border-2 border-blue-500 bg-slate-900 order-1 md:order-2">
+                                <i data-lucide="cpu" class="w-6 h-6 text-blue-400"></i>
+                            </div>
+                            <div class="flex-1 hidden md:block order-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="bg-slate-900/40 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-20 reveal">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">Featured Projects</h2>
+                    <div class="w-24 h-1.5 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full mb-8">
+                    </div>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-lg">Technological solutions built with academic
+                        rigor.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project Card 1 -->
+                    <div class="glass-card rounded-[2rem] p-8 reveal" style="transition-delay: 100ms;">
+                        <div class="w-16 h-16 bg-indigo-500/10 rounded-2xl flex items-center justify-center mb-8">
+                            <i data-lucide="brain-circuit" class="w-8 h-8 text-indigo-400"></i>
+                        </div>
+                        <div class="flex gap-2 mb-6 flex-wrap">
+                            <span
+                                class="px-4 py-1.5 bg-indigo-500/10 text-indigo-400 text-[10px] rounded-full font-bold uppercase tracking-widest">Research</span>
+                            <span
+                                class="px-4 py-1.5 bg-slate-500/10 text-slate-400 text-[10px] rounded-full font-bold uppercase tracking-widest">Python</span>
+                        </div>
+                        <h4 class="text-2xl font-bold mb-4">Intelligent Analytics</h4>
+                        <p class="text-slate-400 mb-8 leading-relaxed">MPhil-level research optimizing distributed
+                            high-performance algorithms for large data sets.</p>
+                        <a href="#" class="text-indigo-400 font-bold text-sm flex items-center gap-3 group">
+                            Case Study <i data-lucide="arrow-right"
+                                class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
+                        </a>
+                    </div>
+
+                    <!-- Project Card 2 -->
+                    <div class="glass-card rounded-[2rem] p-8 reveal" style="transition-delay: 200ms;">
+                        <div class="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-8">
+                            <i data-lucide="layout" class="w-8 h-8 text-purple-400"></i>
+                        </div>
+                        <div class="flex gap-2 mb-6 flex-wrap">
+                            <span
+                                class="px-4 py-1.5 bg-purple-500/10 text-purple-400 text-[10px] rounded-full font-bold uppercase tracking-widest">Web
+                                App</span>
+                            <span
+                                class="px-4 py-1.5 bg-slate-500/10 text-slate-400 text-[10px] rounded-full font-bold uppercase tracking-widest">React</span>
+                        </div>
+                        <h4 class="text-2xl font-bold mb-4">Academic Portal</h4>
+                        <p class="text-slate-400 mb-8 leading-relaxed">A central hub for student resources developed to
+                            streamline digital learning management systems.</p>
+                        <a href="#" class="text-purple-400 font-bold text-sm flex items-center gap-3 group">
+                            Live Demo <i data-lucide="arrow-right"
+                                class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
+                        </a>
+                    </div>
+
+                    <!-- Project Card 3 -->
+                    <div class="glass-card rounded-[2rem] p-8 reveal" style="transition-delay: 300ms;">
+                        <div class="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-8">
+                            <i data-lucide="shield" class="w-8 h-8 text-blue-400"></i>
+                        </div>
+                        <div class="flex gap-2 mb-6 flex-wrap">
+                            <span
+                                class="px-4 py-1.5 bg-blue-500/10 text-blue-400 text-[10px] rounded-full font-bold uppercase tracking-widest">Security</span>
+                            <span
+                                class="px-4 py-1.5 bg-slate-500/10 text-slate-400 text-[10px] rounded-full font-bold uppercase tracking-widest">Node.js</span>
+                        </div>
+                        <h4 class="text-2xl font-bold mb-4">Verification Engine</h4>
+                        <p class="text-slate-400 mb-8 leading-relaxed">Cryptographic validation tool for digital
+                            transcripts to prevent academic document forgery.</p>
+                        <a href="#" class="text-blue-400 font-bold text-sm flex items-center gap-3 group">
+                            Github <i data-lucide="arrow-right"
+                                class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="px-6 relative">
+            <div class="max-w-7xl mx-auto">
+                <header class="text-center mb-20 reveal">
+                    <h2 class="text-3xl md:text-5xl font-bold mb-6">Get In Touch</h2>
+                    <div class="w-24 h-1.5 bg-gradient-to-r from-indigo-500 to-purple-600 mx-auto rounded-full mb-8">
+                    </div>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-lg">Currently available for collaborative research
+                        and specialized software development.</p>
+                </header>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    <!-- Form -->
+                    <div class="glass rounded-[2rem] p-8 md:p-12 reveal">
+                        <form id="contactForm" class="space-y-6">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-xs font-bold uppercase tracking-[0.2em] text-indigo-400 ml-1">Full
+                                        Name</label>
+                                    <input type="text" placeholder="John Doe" required
+                                        class="w-full bg-slate-900/50 border border-slate-700/50 rounded-2xl px-6 py-4 text-sm transition-all focus:border-indigo-500 outline-none">
+                                </div>
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-xs font-bold uppercase tracking-[0.2em] text-indigo-400 ml-1">Email
+                                        Address</label>
+                                    <input type="email" placeholder="john@example.com" required
+                                        class="w-full bg-slate-900/50 border border-slate-700/50 rounded-2xl px-6 py-4 text-sm transition-all focus:border-indigo-500 outline-none">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-xs font-bold uppercase tracking-[0.2em] text-indigo-400 ml-1">Subject</label>
+                                <input type="text" placeholder="Research Collaboration"
+                                    class="w-full bg-slate-900/50 border border-slate-700/50 rounded-2xl px-6 py-4 text-sm transition-all focus:border-indigo-500 outline-none">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs font-bold uppercase tracking-[0.2em] text-indigo-400 ml-1">Your
+                                    Message</label>
+                                <textarea placeholder="Tell me about your project..." rows="5" required
+                                    class="w-full bg-slate-900/50 border border-slate-700/50 rounded-2xl px-6 py-4 text-sm transition-all focus:border-indigo-500 outline-none resize-none"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-extrabold py-5 rounded-2xl transition-all shadow-xl active:scale-[0.98] uppercase tracking-widest text-sm">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="space-y-8 reveal">
+                        <div class="glass rounded-[2rem] p-8 space-y-8">
+                            <div class="flex items-start gap-6">
+                                <div
+                                    class="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 flex-shrink-0">
+                                    <i data-lucide="map-pin"></i>
+                                </div>
+                                <div>
+                                    <h5 class="text-white font-bold text-lg mb-1">Actual Address</h5>
+                                    <p class="text-slate-400 text-sm leading-relaxed">Professor Abdul Hafeez Bhutto
+                                        House, Mohalla Bhutta, National Highway Road, Besides National Bank, Daharki.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-6">
+                                <div
+                                    class="w-14 h-14 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-400 flex-shrink-0">
+                                    <i data-lucide="mail"></i>
+                                </div>
+                                <div>
+                                    <h5 class="text-white font-bold text-lg mb-1">Email</h5>
+                                    <p class="text-slate-400 text-sm">abdulrazakb63@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-6">
+                                <div
+                                    class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 flex-shrink-0">
+                                    <i data-lucide="clock"></i>
+                                </div>
+                                <div class="w-full">
+                                    <h5 class="text-white font-bold text-lg mb-1">Local Time (Daharki)</h5>
+                                    <p id="localTime" class="text-2xl font-extrabold text-indigo-400 tracking-wider">
+                                        --:--:--</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Integrated Map -->
+                        <div class="glass rounded-[2rem] overflow-hidden h-64 shadow-2xl">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14131.84155106544!2d69.7200778!3d28.0069403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x393699039600e0cf%3A0xc3c94514757564d5!2sDaharki%2C%20Ghotki%2C%20Sindh%2C%20Pakistan!5e0!3m2!1sen!2s!4v1710000000000!5m2!1sen!2s"
+                                width="100%" height="100%"
+                                style="border:0; filter: grayscale(1) invert(0.9) contrast(1.1) brightness(0.8);"
+                                allowfullscreen="" loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-12 px-6 border-t border-slate-800">
+            <div
+                class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+                <div>
+                    <p class="text-white font-bold text-xl uppercase tracking-[0.2em] mb-2">Abdul Razak Bhutto</p>
+                    <p class="text-slate-500 text-sm italic">"Turning academic passion into digital reality."</p>
+                </div>
+                <div class="text-slate-500 text-xs">
+                    &copy; 2024. Handcrafted in Daharki, Sindh.
+                </div>
+                <div class="flex gap-4">
+                    <a href="#" class="p-3 glass rounded-xl hover:text-indigo-400 transition-all"><i
+                            data-lucide="linkedin" class="w-5 h-5"></i></a>
+                    <a href="#" class="p-3 glass rounded-xl hover:text-white transition-all"><i data-lucide="github"
+                            class="w-5 h-5"></i></a>
+                    <a href="#" class="p-3 glass rounded-xl hover:text-blue-400 transition-all"><i data-lucide="twitter"
+                            class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Back to Top -->
+        <button id="back-to-top"
+            class="fixed bottom-8 right-8 z-[100] w-14 h-14 glass rounded-2xl flex items-center justify-center shadow-2xl border border-indigo-500/30 text-indigo-400 hover:text-white hover:bg-indigo-600 transition-all group active:scale-90">
+            <i data-lucide="arrow-up" class="w-7 h-7 group-hover:-translate-y-1 transition-transform"></i>
+        </button>
+
+        <!-- Success Modal -->
+        <div id="successModal"
+            class="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-slate-950/95 backdrop-blur hidden">
+            <div class="glass max-w-sm w-full rounded-[2rem] p-10 text-center transform scale-95 transition-transform">
+                <div
+                    class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_0_30px_rgba(34,197,94,0.3)]">
+                    <i data-lucide="check" class="w-10 h-10 text-green-500"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-3 text-white">Message Sent!</h3>
+                <p class="text-slate-400 text-sm mb-10 leading-relaxed">Thank you, Abdul Razak. Your message has been
+                    received. I will review it and get back to you shortly.</p>
+                <button onclick="closeModal()"
+                    class="w-full bg-slate-800 border border-slate-700 py-4 rounded-2xl hover:bg-slate-700 transition-all font-bold uppercase tracking-widest text-xs">Close</button>
+            </div>
+        </div>
+
+        <script>
+            function init() {
+                lucide.createIcons();
+                updateTime();
+                setInterval(updateTime, 1000);
+                window.addEventListener('scroll', handleScroll);
+                reveal();
+
+                // Mobile Menu
+                const menuBtn = document.getElementById('menu-btn');
+                const closeBtn = document.getElementById('close-menu');
+                const mobileMenu = document.getElementById('mobile-menu');
+                const mobileLinks = document.querySelectorAll('.mobile-link');
+
+                function toggleMenu() {
+                    mobileMenu.classList.toggle('translate-x-full');
+                    document.body.classList.toggle('overflow-hidden');
+                }
+
+                menuBtn?.addEventListener('click', toggleMenu);
+                closeBtn?.addEventListener('click', toggleMenu);
+                mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+                // Back to Top
+                document.getElementById('back-to-top')?.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
+            function handleScroll() {
+                reveal();
+                const bttBtn = document.getElementById('back-to-top');
+                if (bttBtn) {
+                    if (window.scrollY > 500) bttBtn.classList.add('visible');
+                    else bttBtn.classList.remove('visible');
+                }
+            }
+
+            function reveal() {
+                document.querySelectorAll(".reveal").forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight - 50) {
+                        el.classList.add("active");
+                    }
+                });
+            }
+
+            function updateTime() {
+                const timeEl = document.getElementById('localTime');
+                if (timeEl) {
+                    timeEl.textContent = new Date().toLocaleTimeString('en-US', {
+                        timeZone: 'Asia/Karachi',
+                        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+                    });
+                }
+            }
+
+            const form = document.getElementById('contactForm');
+            form?.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = form.querySelector('button');
+                const original = btn.innerText;
+                btn.disabled = true;
+                btn.innerText = 'SENDING...';
+                setTimeout(() => {
+                    document.getElementById('successModal').classList.remove('hidden');
+                    form.reset();
+                    btn.disabled = false;
+                    btn.innerText = original;
+                }, 1200);
+            });
+
+            function closeModal() {
+                document.getElementById('successModal').classList.add('hidden');
+            }
+
+            window.onload = init;
+        </script>
+    </body>
+
+</html>
